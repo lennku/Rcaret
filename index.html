@@ -1,0 +1,941 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Machine Learning with Caret in R</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Machine Learning with Caret in R">
+  <meta name="author" content="Melissa Zhao">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="libraries/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->  <link rel=stylesheet href="./assets/css/center_image.css"></link>
+<link rel=stylesheet href="./assets/css/ribbons.css"></link>
+<link rel=stylesheet href="./assets/css/slide_numbers.css"></link>
+<link rel=stylesheet href="./assets/css/smaller_font.css"></link>
+
+  
+  <!-- Grab CDN jQuery, fall back to local if offline -->
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+  <script>window.jQuery || document.write('<script src="libraries/widgets/quiz/js/jquery.js"><\/script>')</script> 
+  <script data-main="libraries/frameworks/io2012/js/slides" 
+    src="libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+  
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+        <slide class="title-slide segue nobackground">
+  <hgroup class="auto-fadein">
+    <h1>Machine Learning with Caret in R</h1>
+    <h2>An overview of machine learning and guide to the Caret Package</h2>
+    <p>Melissa Zhao<br/>Research Scientist, Ogino Lab</p>
+  </hgroup>
+  <article></article>  
+</slide>
+    
+
+    <!-- SLIDES -->
+    <slide class="" id="slide-1" style="background:;">
+  <article data-timings="">
+    <!-- Limit image width and height -->
+
+<style type='text/css'>
+img {
+    max-height: 560px;
+    max-width: 964px;
+}
+</style>
+
+<!-- Center image on slide -->
+
+<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+
+<script type='text/javascript'>
+$(function() {
+    $("p:has(img)").addClass('centered');
+});
+</script>
+
+<h2>Machine learning</h2>
+
+<p>&quot; A method of data analysis that automates analytical model building. It is a branch of artificial intelligence based on the idea that systems can learn from data, identify patterns and make decisions with minimal human intervention. &quot;</p>
+
+<ul class = "build incremental">
+<li>coined by Arthur Samuel in 1959</li>
+<li>closely related to computational statistics</li>
+<li>focuses on making predictions / classifications</li>
+<li>supervised or unsupervised learning</li>
+<li>Goals: produce reliable and repeatable decisions, uncover hidden patterns/insights within subjects of interest</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-2" style="background:;">
+  <hgroup>
+    <h2>Types of Machine learning</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>Supervised</p>
+
+<ul class = "build incremental">
+<li>Linear regression</li>
+<li>Decision trees</li>
+<li>Support vector machines</li>
+<li>Neural networks</li>
+</ul>
+
+<p>Unsupervised</p>
+
+<ul class = "build incremental">
+<li>Clustering 
+Hierarchical clustering
+Mixture models</li>
+<li>Neural Networks
+Self-organizing map
+Generative Adversarial Networks</li>
+<li>Late variable models
+Expectation-maximization</li>
+<li>Blind signal separation
+Principal component analysis
+Singular value decomposition</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-3" style="background:;">
+  <hgroup>
+    <h2>Models in Caret</h2>
+  </hgroup>
+  <article data-timings="">
+    <pre><code class="r">library(caret)
+names(getModelInfo())
+</code></pre>
+
+<p><img src="assets/img/caret_models.png" alt=""></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-4" style="background:;">
+  <hgroup>
+    <h2>Decision trees</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><img src="assets/img/dt.png" alt=""></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-5" style="background:;">
+  <hgroup>
+    <h2>Support vector machines</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><img src="assets/img/svm.png" alt=""></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-6" style="background:;">
+  <hgroup>
+    <h2>Neural networks</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><img src="assets/img/nn.png" alt=""></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-7" style="background:;">
+  <hgroup>
+    <h2>Which model to choose?</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><img src="assets/img/models.png" alt=""></p>
+
+<h3>Source: ESL (Hastie)</h3>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-8" style="background:;">
+  <hgroup>
+    <h2>Google AI: Deep Learning for Electronic Health Records</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>&quot;When patients get admitted to a hospital, they have many questions about what will happen next. When will I be able to go home? Will I get better? Will I have to come back to the hospital? Having precise answers to those questions helps doctors and nurses make care better, safer, and faster - if a patient&#39;s health is deteriorating, doctors could be sent proactively to act before things get worse.&quot;</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-9" style="background:;">
+  <article data-timings="">
+    <p><img src="assets/img/example_googleAI.jpg" alt=""></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-10" style="background:pink;">
+  <hgroup>
+    <h2>Caret package in R</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>Classification And Regression Training<br>
+A wrapper package that contains a set of functions to streamline creation of predictive models<br>
+Includes tools for data splitting, pre-processing, feature selection, model tuning, etc. </p>
+
+<p><img src="assets/img/caret.png" alt=""></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-11" style="background:;">
+  <hgroup>
+    <h2>Steps</h2>
+  </hgroup>
+  <article data-timings="">
+    <ol class = "build incremental">
+<li>Getting started</li>
+<li>Training/testing split</li>
+<li>Pre-processing</li>
+<li>Feature selection</li>
+<li>Train models</li>
+<li>Parameter tuning</li>
+<li>Variable importance estimation</li>
+<li>Model performance</li>
+</ol>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-12" style="background:yellow;">
+  <hgroup>
+    <h2>Demonstration</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>For this demo, we will use the Abalone dataset from an original study on Abalone population in Australia.  </p>
+
+<p>&quot;The Population Biology of Abalone (<em>Haliotis</em> species) in Tasmania. I. Blacklip Abalone (<em>H. rubra</em>) from the North Coast and Islands of Bass Strait&quot;
+Nash (1994)</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-13" style="background:;">
+  <hgroup>
+    <h2>1. Getting started</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>Sex / nominal / -- / M, F, and I (infant)<br>
+Length / continuous / mm / Longest shell measurement<br>
+Diameter    / continuous / mm / perpendicular to length<br>
+Height / continuous / mm / with meat in shell<br>
+Whole weight / continuous / grams / whole abalone<br>
+Shucked weight / continuous / grams / weight of meat<br>
+Viscera weight / continuous / grams / gut weight (after bleeding)<br>
+Shell weight / continuous / grams / after being dried<br>
+Rings / integer / -- / +1.5 gives the age in years  </p>
+
+<pre><code class="r">library(caret)
+</code></pre>
+
+<pre><code class="r">data = read.csv(&quot;abalone.data&quot;, header = F)
+colnames(data) = c(&quot;Sex&quot;, &quot;Length&quot;, &quot;Diameter&quot;, &quot;Height&quot;, &quot;Whole_Weight&quot;, 
+                   &quot;Shuckled_Weight&quot;, &quot;Viscera_Weight&quot;, &quot;Shell_Weight&quot;, &quot;Rings&quot;)
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-14" style="background:;">
+  <article data-timings="">
+    <pre><code class="r">dim(data)
+</code></pre>
+
+<pre><code>## [1] 4177    9
+</code></pre>
+
+<pre><code class="r">sum(is.na(data))
+</code></pre>
+
+<pre><code>## [1] 0
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-15" style="background:;">
+  <article data-timings="">
+    <pre><code class="r">summary(data)
+</code></pre>
+
+<pre><code>##  Sex          Length         Diameter          Height      
+##  F:1307   Min.   :0.075   Min.   :0.0550   Min.   :0.0000  
+##  I:1342   1st Qu.:0.450   1st Qu.:0.3500   1st Qu.:0.1150  
+##  M:1528   Median :0.545   Median :0.4250   Median :0.1400  
+##           Mean   :0.524   Mean   :0.4079   Mean   :0.1395  
+##           3rd Qu.:0.615   3rd Qu.:0.4800   3rd Qu.:0.1650  
+##           Max.   :0.815   Max.   :0.6500   Max.   :1.1300  
+##   Whole_Weight    Shuckled_Weight  Viscera_Weight    Shell_Weight   
+##  Min.   :0.0020   Min.   :0.0010   Min.   :0.0005   Min.   :0.0015  
+##  1st Qu.:0.4415   1st Qu.:0.1860   1st Qu.:0.0935   1st Qu.:0.1300  
+##  Median :0.7995   Median :0.3360   Median :0.1710   Median :0.2340  
+##  Mean   :0.8287   Mean   :0.3594   Mean   :0.1806   Mean   :0.2388  
+##  3rd Qu.:1.1530   3rd Qu.:0.5020   3rd Qu.:0.2530   3rd Qu.:0.3290  
+##  Max.   :2.8255   Max.   :1.4880   Max.   :0.7600   Max.   :1.0050  
+##      Rings       
+##  Min.   : 1.000  
+##  1st Qu.: 8.000  
+##  Median : 9.000  
+##  Mean   : 9.934  
+##  3rd Qu.:11.000  
+##  Max.   :29.000
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-16" style="background:;">
+  <article data-timings="">
+    <pre><code class="r">featurePlot(x = data[, 2:8],
+            y = data$Rings,
+            plot = &quot;scatter&quot;)
+</code></pre>
+
+<p><img src="figure/unnamed-chunk-6-1.png" alt="plot of chunk unnamed-chunk-6"></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-17" style="background:;">
+  <article data-timings="">
+    <pre><code class="r">featurePlot(x = data$Rings, 
+            y = data$Sex, 
+            plot = &quot;box&quot;)
+</code></pre>
+
+<p><img src="figure/unnamed-chunk-7-1.png" alt="plot of chunk unnamed-chunk-7"></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-18" style="background:;">
+  <article data-timings="">
+    <pre><code class="r">library(corrplot)
+</code></pre>
+
+<pre><code class="r">M = cor(data[,-1])
+corrplot(M, method = &quot;color&quot;)
+</code></pre>
+
+<p><img src="figure/unnamed-chunk-9-1.png" alt="plot of chunk unnamed-chunk-9"></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-19" style="background:;">
+  <hgroup>
+    <h2>2. Training/testing split</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>Splitting into 80% training set and 20% testing set.</p>
+
+<ul>
+<li>Splitting based on predictors</li>
+<li>Splitting based on outcome</li>
+</ul>
+
+<pre><code class="r">intrain = createDataPartition(data$Rings, p=0.8, list=FALSE)
+train = data[ intrain,]
+test = data[-intrain,]
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-20" style="background:;">
+  <hgroup>
+    <h2>3. Pre-processing</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>Create dummy variables</li>
+<li>Zero- and Near Zero-variance analysis</li>
+<li>Correlated predictors</li>
+<li>Linear Dependencies</li>
+<li>Imputation</li>
+<li>Center and Scale</li>
+</ul>
+
+<pre><code class="r">preProcValues = preProcess(train, method = c(&quot;knnImpute&quot;)) #automatically centers and scales
+train = predict(preProcValues, train)
+preProcValues = preProcess(test, method = c(&quot;knnImpute&quot;))
+test = predict(preProcValues, test)
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-21" style="background:;">
+  <article data-timings="">
+    <pre><code class="r">summary(train)
+</code></pre>
+
+<pre><code>##  Sex          Length           Diameter           Height        
+##  F:1042   Min.   :-3.4331   Min.   :-3.1972   Min.   :-3.30641  
+##  I:1060   1st Qu.:-0.6197   1st Qu.:-0.5873   1st Qu.:-0.58397  
+##  M:1241   Median : 0.1664   Median : 0.1656   Median : 0.00786  
+##           Mean   : 0.0000   Mean   : 0.0000   Mean   : 0.00000  
+##           3rd Qu.: 0.7456   3rd Qu.: 0.7177   3rd Qu.: 0.59969  
+##           Max.   : 2.4005   Max.   : 2.4242   Max.   :23.44452  
+##   Whole_Weight      Shuckled_Weight    Viscera_Weight    
+##  Min.   :-1.67135   Min.   :-1.60985   Min.   :-1.64116  
+##  1st Qu.:-0.79104   1st Qu.:-0.77745   1st Qu.:-0.80064  
+##  Median :-0.06141   Median :-0.09985   Median :-0.09117  
+##  Mean   : 0.00000   Mean   : 0.00000   Mean   : 0.00000  
+##  3rd Qu.: 0.65103   3rd Qu.: 0.63046   3rd Qu.: 0.64994  
+##  Max.   : 4.02715   Max.   : 5.05612   Max.   : 5.22311  
+##   Shell_Weight          Rings        
+##  Min.   :-1.68536   Min.   :-2.4610  
+##  1st Qu.:-0.78327   1st Qu.:-0.5984  
+##  Median :-0.03745   Median :-0.2880  
+##  Mean   : 0.00000   Mean   : 0.0000  
+##  3rd Qu.: 0.63734   3rd Qu.: 0.3329  
+##  Max.   : 5.43189   Max.   : 5.9206
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-22" style="background:;">
+  <article data-timings="">
+    <pre><code class="r">summary(test)
+</code></pre>
+
+<pre><code>##  Sex         Length           Diameter           Height        
+##  F:265   Min.   :-3.8066   Min.   :-3.5854   Min.   :-3.21135  
+##  I:282   1st Qu.:-0.6015   1st Qu.:-0.6179   1st Qu.:-0.59561  
+##  M:287   Median : 0.1250   Median : 0.1495   Median : 0.02718  
+##          Mean   : 0.0000   Mean   : 0.0000   Mean   : 0.00000  
+##          3rd Qu.: 0.8088   3rd Qu.: 0.7634   3rd Qu.: 0.64998  
+##          Max.   : 2.0908   Max.   : 1.9914   Max.   : 9.36910  
+##   Whole_Weight      Shuckled_Weight   Viscera_Weight     Shell_Weight     
+##  Min.   :-1.69852   Min.   :-1.6067   Min.   :-1.6545   Min.   :-1.74629  
+##  1st Qu.:-0.78955   1st Qu.:-0.8046   1st Qu.:-0.7981   1st Qu.:-0.81489  
+##  Median :-0.06643   Median :-0.1308   Median :-0.1198   Median :-0.06072  
+##  Mean   : 0.00000   Mean   : 0.0000   Mean   : 0.0000   Mean   : 0.00000  
+##  3rd Qu.: 0.70763   3rd Qu.: 0.6913   3rd Qu.: 0.6915   3rd Qu.: 0.69251  
+##  Max.   : 3.69355   Max.   : 4.5762   Max.   : 3.1777   Max.   : 3.25763  
+##      Rings        
+##  Min.   :-2.7672  
+##  1st Qu.:-0.6048  
+##  Median :-0.2959  
+##  Mean   : 0.0000  
+##  3rd Qu.: 0.3219  
+##  Max.   : 4.0287
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-23" style="background:;">
+  <hgroup>
+    <h2>4. Feature selection</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>Many models have built-in feature selection methods, often based on error minimization / likelihood maximization. For models without this intrinsic method, feature selection can be performed via a variety of approaches in caret. </p>
+
+<pre><code class="r">control &lt;- rfeControl(functions = rfFuncs,
+                   method = &quot;repeatedcv&quot;,
+                   repeats = 3,
+                   verbose = F)
+outcome = &#39;Rings&#39;
+predictors = names(train)[!names(train) %in% outcome]
+rfe(train[,predictors], train[,outcome],
+                      rfeControl = control)
+
+predictors = c(&quot;Shuckled_Weight&quot;, &quot;Shell_Weight&quot;, &quot;Sex&quot;, &quot;Height&quot;, &quot;Viscera_Weight&quot;)
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-24" style="background:;">
+  <hgroup>
+    <h2>5. Train models</h2>
+  </hgroup>
+  <article data-timings="">
+    <pre><code class="r">#set seed
+set.seed(123)
+
+#Gradient boosting
+model_gbm&lt;-train(train[,predictors],train[,outcome],method=&#39;gbm&#39;)
+
+#Random forest
+model_rf&lt;-train(train[,predictors],train[,outcome],method=&#39;rf&#39;)
+
+#Support vector machine
+model_glm&lt;-train(train[,predictors],train[,outcome],method=&#39;svmLinear&#39;)
+
+#Neural networks
+model_nnet&lt;-train(train[,predictors],train[,outcome],method=&#39;nnet&#39;)#feed-forward, single hidden-layer network
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-25" style="background:;">
+  <hgroup>
+    <h2>6. Parameter tuning</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>Tuning can be performed via the specification of a tuning grid or tuning length.</p>
+
+<pre><code class="r">fitControl &lt;- trainControl(
+  method = &quot;repeatedcv&quot;,
+  number = 5,
+  repeats = 5)
+
+modelLookup(model=&#39;gbm&#39;)
+</code></pre>
+
+<pre><code>##   model         parameter                   label forReg forClass
+## 1   gbm           n.trees   # Boosting Iterations   TRUE     TRUE
+## 2   gbm interaction.depth          Max Tree Depth   TRUE     TRUE
+## 3   gbm         shrinkage               Shrinkage   TRUE     TRUE
+## 4   gbm    n.minobsinnode Min. Terminal Node Size   TRUE     TRUE
+##   probModel
+## 1      TRUE
+## 2      TRUE
+## 3      TRUE
+## 4      TRUE
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-26" style="background:;">
+  <article data-timings="">
+    <pre><code class="r">#Creating grid
+grid &lt;- expand.grid(n.trees=c(10,20,50,100,500,1000),
+                    shrinkage=c(0.01,0.05,0.1,0.5),
+                    n.minobsinnode = c(3,5,10),
+                    interaction.depth=c(1,5,10))
+
+# training the model
+#using tune grid
+model_gbm&lt;-train(train[,predictors],train[,outcome],
+                 method=&#39;gbm&#39;,trControl=fitControl,tuneGrid=grid)
+#using tune length
+model_gbm&lt;-train(train[,predictors],train[,outcome],
+                 method=&#39;gbm&#39;,trControl=fitControl,tuneLength=10)
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-27" style="background:;">
+  <article data-timings="">
+    <pre><code class="r">print(model_gbm)
+</code></pre>
+
+<pre><code>## Stochastic Gradient Boosting 
+## 
+## 3343 samples
+##    8 predictor
+## 
+## No pre-processing
+## Resampling: Bootstrapped (25 reps) 
+## Summary of sample sizes: 3343, 3343, 3343, 3343, 3343, 3343, ... 
+## Resampling results across tuning parameters:
+## 
+##   interaction.depth  n.trees  RMSE       Rsquared   MAE      
+##   1                   50      0.7502591  0.4454662  0.5382197
+##   1                  100      0.7206563  0.4865738  0.5157580
+##   1                  150      0.7043399  0.5073519  0.5044893
+##   2                   50      0.7000025  0.5158610  0.4998578
+##   2                  100      0.6750586  0.5438537  0.4782080
+##   2                  150      0.6711010  0.5483069  0.4737402
+##   3                   50      0.6843659  0.5340065  0.4852911
+##   3                  100      0.6711283  0.5482569  0.4732381
+##   3                  150      0.6706128  0.5490469  0.4723335
+## 
+## Tuning parameter &#39;shrinkage&#39; was held constant at a value of 0.1
+## 
+## Tuning parameter &#39;n.minobsinnode&#39; was held constant at a value of 10
+## RMSE was used to select the optimal model using the smallest value.
+## The final values used for the model were n.trees = 150,
+##  interaction.depth = 3, shrinkage = 0.1 and n.minobsinnode = 10.
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-28" style="background:;">
+  <article data-timings="">
+    <pre><code class="r">plot(model_gbm)
+</code></pre>
+
+<p><img src="figure/unnamed-chunk-21-1.png" alt="plot of chunk unnamed-chunk-21"></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-29" style="background:;">
+  <hgroup>
+    <h2>7. Variable importance estimation</h2>
+  </hgroup>
+  <article data-timings="">
+    <pre><code class="r">#Variable Importance
+library(gbm)
+</code></pre>
+
+<pre><code>## Loaded gbm 2.1.4
+</code></pre>
+
+<pre><code class="r">varImp(object=model_gbm)
+</code></pre>
+
+<pre><code>## gbm variable importance
+## 
+##                 Overall
+## Shell_Weight    100.000
+## Shuckled_Weight  28.940
+## Height            8.365
+## Whole_Weight      3.968
+## Diameter          2.822
+## Sex               1.661
+## Viscera_Weight    1.609
+## Length            0.000
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-30" style="background:;">
+  <article data-timings="">
+    <pre><code class="r">#Plotting Varianble importance for GBM
+plot(varImp(object=model_gbm),main=&quot;GBM - Variable Importance&quot;)
+</code></pre>
+
+<p><img src="figure/unnamed-chunk-23-1.png" alt="plot of chunk unnamed-chunk-23"></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-31" style="background:;">
+  <hgroup>
+    <h2>8. Model performance</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>Classification: ROC, Accuracy, Sensitivity, Specificity (confusion matrix)<br>
+Regression: RMSE, R-squared, MAE</p>
+
+<pre><code class="r">#Predictions
+predictions&lt;-predict.train(object=model_gbm,test[,predictors],type=&quot;raw&quot;)
+
+#Performance
+#Measures for regression
+postResample(pred = predictions, obs = test[,outcome])
+
+#Measures for classification
+confusionMatrix(predictions,test[,outcome])
+</code></pre>
+
+<pre><code>##      RMSE  Rsquared       MAE 
+## 0.7063146 0.5029404 0.5014429
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-32" style="background:;">
+  <article data-timings="">
+    <pre><code class="r">plot(predictions, test[,outcome])
+abline(a = 0 , b = 1, col = &quot;red&quot;)
+</code></pre>
+
+<p><img src="figure/unnamed-chunk-26-1.png" alt="plot of chunk unnamed-chunk-26"></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-33" style="background:;">
+  <hgroup>
+    <h2>References and Resources</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>Caret user guide: <a href="http://topepo.github.io">http://topepo.github.io</a></li>
+<li>Caret tutorial: <a href="https://datascienceplus.com/machine-learning-with-r-caret-part-1/">https://datascienceplus.com/machine-learning-with-r-caret-part-1/</a></li>
+<li>Coursera: <a href="https://www.coursera.org/lecture/practical-machine-learning/caret-package-Bu9ns">https://www.coursera.org/lecture/practical-machine-learning/caret-package-Bu9ns</a></li>
+<li>Google AI for EHR Example: <a href="https://ai.googleblog.com/2018/05/deep-learning-for-electronic-health.html">https://ai.googleblog.com/2018/05/deep-learning-for-electronic-health.html</a></li>
+<li>Machine learning in Python: <a href="https://www.kaggle.com/ragnisah/eda-abalone-age-prediction">https://www.kaggle.com/ragnisah/eda-abalone-age-prediction</a></li>
+<li>Mathematical concepts: Introduction to Statistical Learning (Gareth James), Elements of Statistical Learning (Trevor Hastie)</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+  <div class="pagination pagination-small" id='io2012-ptoc' style="display:none;">
+    <ul>
+      <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=1 title='NA'>
+         1
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=2 title='Types of Machine learning'>
+         2
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=3 title='Models in Caret'>
+         3
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=4 title='Decision trees'>
+         4
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=5 title='Support vector machines'>
+         5
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=6 title='Neural networks'>
+         6
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=7 title='Which model to choose?'>
+         7
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=8 title='Google AI: Deep Learning for Electronic Health Records'>
+         8
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=9 title='NA'>
+         9
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=10 title='Caret package in R'>
+         10
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=11 title='Steps'>
+         11
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=12 title='Demonstration'>
+         12
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=13 title='1. Getting started'>
+         13
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=14 title='NA'>
+         14
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=15 title='NA'>
+         15
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=16 title='NA'>
+         16
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=17 title='NA'>
+         17
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=18 title='NA'>
+         18
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=19 title='2. Training/testing split'>
+         19
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=20 title='3. Pre-processing'>
+         20
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=21 title='NA'>
+         21
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=22 title='NA'>
+         22
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=23 title='4. Feature selection'>
+         23
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=24 title='5. Train models'>
+         24
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=25 title='6. Parameter tuning'>
+         25
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=26 title='NA'>
+         26
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=27 title='NA'>
+         27
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=28 title='NA'>
+         28
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=29 title='7. Variable importance estimation'>
+         29
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=30 title='NA'>
+         30
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=31 title='8. Model performance'>
+         31
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=32 title='NA'>
+         32
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=33 title='References and Resources'>
+         33
+      </a>
+    </li>
+  </ul>
+  </div>  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+  <!-- Load Javascripts for Widgets -->
+  
+  <!-- LOAD HIGHLIGHTER JS FILES -->
+  <script src="libraries/highlighters/highlight.js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- DONE LOADING HIGHLIGHTER JS FILES -->
+   
+  </html>

@@ -1,0 +1,400 @@
+---
+title       : Machine Learning with Caret in R
+subtitle    : An overview of machine learning and guide to the Caret Package
+author      : Melissa Zhao
+job         : Research Scientist, Ogino Lab
+framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
+highlighter : highlight.js  # {highlight.js, prettify, highlight}
+hitheme     : tomorrow      # 
+widgets     : []            # {mathjax, quiz, bootstrap}
+mode        : selfcontained # {standalone, draft}
+knit        : slidify::knit2slides
+
+---
+
+<!-- Limit image width and height -->
+<style type='text/css'>
+img {
+    max-height: 560px;
+    max-width: 964px;
+}
+</style>
+
+<!-- Center image on slide -->
+<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+<script type='text/javascript'>
+$(function() {
+    $("p:has(img)").addClass('centered');
+});
+</script>
+
+## Machine learning
+
+" A method of data analysis that automates analytical model building. It is a branch of artificial intelligence based on the idea that systems can learn from data, identify patterns and make decisions with minimal human intervention. "
+
+
+> - coined by Arthur Samuel in 1959
+> - closely related to computational statistics
+> - focuses on making predictions / classifications
+> - supervised or unsupervised learning
+> - Goals: produce reliable and repeatable decisions, uncover hidden patterns/insights within subjects of interest
+
+---
+
+## Types of Machine learning
+
+Supervised
+> - Linear regression
+> - Decision trees
+> - Support vector machines
+> - Neural networks
+
+Unsupervised
+> - Clustering 
+    Hierarchical clustering
+    Mixture models
+> - Neural Networks
+    Self-organizing map
+    Generative Adversarial Networks
+> - Late variable models
+    Expectation-maximization
+> - Blind signal separation
+    Principal component analysis
+    Singular value decomposition
+
+---
+
+## Models in Caret
+
+```{r, results = F, message = F}
+library(caret)
+names(getModelInfo())
+```
+![](assets/img/caret_models.png)
+
+---
+
+## Decision trees
+
+![](assets/img/dt.png)
+
+---
+
+## Support vector machines
+
+![](assets/img/svm.png)
+
+---
+
+## Neural networks
+
+![](assets/img/nn.png)
+
+---
+
+## Which model to choose?
+
+![](assets/img/models.png)
+### Source: ESL (Hastie)
+
+---
+
+## Google AI: Deep Learning for Electronic Health Records
+
+"When patients get admitted to a hospital, they have many questions about what will happen next. When will I be able to go home? Will I get better? Will I have to come back to the hospital? Having precise answers to those questions helps doctors and nurses make care better, safer, and faster - if a patient's health is deteriorating, doctors could be sent proactively to act before things get worse."
+
+---
+
+![](assets/img/example_googleAI.jpg)
+
+--- bg:pink
+
+## Caret package in R
+
+Classification And Regression Training  
+A wrapper package that contains a set of functions to streamline creation of predictive models  
+Includes tools for data splitting, pre-processing, feature selection, model tuning, etc. 
+
+![](assets/img/caret.png)
+
+---
+
+## Steps
+> 1. Getting started
+> 2. Training/testing split
+> 3. Pre-processing
+> 4. Feature selection
+> 5. Train models
+> 6. Parameter tuning
+> 7. Variable importance estimation
+> 8. Model performance
+
+--- bg:yellow
+
+## Demonstration
+
+For this demo, we will use the Abalone dataset from an original study on Abalone population in Australia.  
+
+"The Population Biology of Abalone (_Haliotis_ species) in Tasmania. I. Blacklip Abalone (_H. rubra_) from the North Coast and Islands of Bass Strait"
+Nash (1994)
+
+---
+
+## 1. Getting started
+
+Sex / nominal / -- / M, F, and I (infant)  
+Length / continuous / mm / Longest shell measurement  
+Diameter	/ continuous / mm / perpendicular to length  
+Height / continuous / mm / with meat in shell  
+Whole weight / continuous / grams / whole abalone  
+Shucked weight / continuous	/ grams / weight of meat  
+Viscera weight / continuous / grams / gut weight (after bleeding)   
+Shell weight / continuous / grams / after being dried  
+Rings / integer / -- / +1.5 gives the age in years  
+
+```{r, results = F, message = F}
+library(caret)
+```
+
+```{r, message = F}
+data = read.csv("abalone.data", header = F)
+colnames(data) = c("Sex", "Length", "Diameter", "Height", "Whole_Weight", 
+                   "Shuckled_Weight", "Viscera_Weight", "Shell_Weight", "Rings")
+```
+
+---
+
+```{r}
+dim(data)
+sum(is.na(data))
+```
+
+---
+
+```{r}
+summary(data)
+```
+
+---
+
+```{r}
+featurePlot(x = data[, 2:8],
+            y = data$Rings,
+            plot = "scatter")
+```
+
+---
+
+```{r}
+featurePlot(x = data$Rings, 
+            y = data$Sex, 
+            plot = "box")
+```
+
+---
+
+```{r, message = F, error = F, results = F}
+library(corrplot)
+```
+
+```{r}
+M = cor(data[,-1])
+corrplot(M, method = "color")
+```
+
+---
+
+## 2. Training/testing split
+
+Splitting into 80% training set and 20% testing set.
+
+- Splitting based on predictors
+- Splitting based on outcome
+```{r}
+intrain = createDataPartition(data$Rings, p=0.8, list=FALSE)
+train = data[ intrain,]
+test = data[-intrain,]
+```
+
+---
+
+## 3. Pre-processing
+
+- Create dummy variables
+- Zero- and Near Zero-variance analysis
+- Correlated predictors
+- Linear Dependencies
+- Imputation
+- Center and Scale
+```{r}
+preProcValues = preProcess(train, method = c("knnImpute")) #automatically centers and scales
+train = predict(preProcValues, train)
+preProcValues = preProcess(test, method = c("knnImpute"))
+test = predict(preProcValues, test)
+```
+
+---
+
+```{r}
+summary(train)
+```
+
+---
+
+```{r}
+summary(test)
+```
+
+---
+
+## 4. Feature selection
+
+Many models have built-in feature selection methods, often based on error minimization / likelihood maximization. For models without this intrinsic method, feature selection can be performed via a variety of approaches in caret. 
+```{r, eval = F}
+control <- rfeControl(functions = rfFuncs,
+                   method = "repeatedcv",
+                   repeats = 3,
+                   verbose = F)
+outcome = 'Rings'
+predictors = names(train)[!names(train) %in% outcome]
+rfe(train[,predictors], train[,outcome],
+                      rfeControl = control)
+
+predictors = c("Shuckled_Weight", "Shell_Weight", "Sex", "Height", "Viscera_Weight")
+```
+
+```{r, echo = F}
+outcome = 'Rings'
+predictors = names(train)[!names(train) %in% outcome]
+```
+
+---
+
+## 5. Train models
+
+```{r, echo = F, message = F, results = F}
+set.seed(123)
+model_gbm<-train(train[,predictors],train[,outcome],method='gbm')
+```
+
+```{r, eval = F}
+#set seed
+set.seed(123)
+
+#Gradient boosting
+model_gbm<-train(train[,predictors],train[,outcome],method='gbm')
+
+#Random forest
+model_rf<-train(train[,predictors],train[,outcome],method='rf')
+
+#Support vector machine
+model_glm<-train(train[,predictors],train[,outcome],method='svmLinear')
+
+#Neural networks
+model_nnet<-train(train[,predictors],train[,outcome],method='nnet')#feed-forward, single hidden-layer network
+
+```
+
+---
+
+## 6. Parameter tuning
+
+Tuning can be performed via the specification of a tuning grid or tuning length.
+```{r, message = F}
+fitControl <- trainControl(
+  method = "repeatedcv",
+  number = 5,
+  repeats = 5)
+
+modelLookup(model='gbm')
+```
+
+---
+
+```{r, eval = F}
+#Creating grid
+grid <- expand.grid(n.trees=c(10,20,50,100,500,1000),
+                    shrinkage=c(0.01,0.05,0.1,0.5),
+                    n.minobsinnode = c(3,5,10),
+                    interaction.depth=c(1,5,10))
+
+# training the model
+#using tune grid
+model_gbm<-train(train[,predictors],train[,outcome],
+                 method='gbm',trControl=fitControl,tuneGrid=grid)
+#using tune length
+model_gbm<-train(train[,predictors],train[,outcome],
+                 method='gbm',trControl=fitControl,tuneLength=10)
+```
+
+---
+
+```{r}
+print(model_gbm)
+```
+
+---
+
+```{r}
+plot(model_gbm)
+```
+
+---
+
+## 7. Variable importance estimation
+
+```{r}
+#Variable Importance
+library(gbm)
+varImp(object=model_gbm)
+```
+
+---
+
+```{r}
+#Plotting Varianble importance for GBM
+plot(varImp(object=model_gbm),main="GBM - Variable Importance")
+```
+
+---
+
+## 8. Model performance
+
+Classification: ROC, Accuracy, Sensitivity, Specificity (confusion matrix)  
+Regression: RMSE, R-squared, MAE
+```{r, eval = F}
+#Predictions
+predictions<-predict.train(object=model_gbm,test[,predictors],type="raw")
+
+#Performance
+#Measures for regression
+postResample(pred = predictions, obs = test[,outcome])
+
+#Measures for classification
+confusionMatrix(predictions,test[,outcome])
+```
+
+```{r, echo = F, message = F}
+#Predictions
+predictions<-predict.train(object=model_gbm,test[,predictors],type="raw")
+
+postResample(pred = predictions, obs = test[,outcome])
+```
+
+---
+
+```{r}
+plot(predictions, test[,outcome])
+abline(a = 0 , b = 1, col = "red")
+```
+
+---
+
+## References and Resources
+
+- Caret user guide: http://topepo.github.io
+- Caret tutorial: https://datascienceplus.com/machine-learning-with-r-caret-part-1/
+- Coursera: https://www.coursera.org/lecture/practical-machine-learning/caret-package-Bu9ns
+- Google AI for EHR Example: https://ai.googleblog.com/2018/05/deep-learning-for-electronic-health.html
+- Machine learning in Python: https://www.kaggle.com/ragnisah/eda-abalone-age-prediction
+- Mathematical concepts: Introduction to Statistical Learning (Gareth James), Elements of Statistical Learning (Trevor Hastie)
