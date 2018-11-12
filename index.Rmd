@@ -117,7 +117,7 @@ Includes tools for data splitting, pre-processing, feature selection, model tuni
 
 ![](assets/img/caret.png)
 
----
+---bg:#EEE
 
 ## Steps
 > 1. Getting started

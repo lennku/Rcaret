@@ -210,7 +210,7 @@ Includes tools for data splitting, pre-processing, feature selection, model tuni
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="" id="slide-11" style="background:;">
+<slide class="" id="slide-11" style="background:#EEE;">
   <hgroup>
     <h2>Steps</h2>
   </hgroup>
@@ -413,26 +413,26 @@ test = predict(preProcValues, test)
 </code></pre>
 
 <pre><code>##  Sex          Length           Diameter           Height        
-##  F:1042   Min.   :-3.4331   Min.   :-3.1972   Min.   :-3.30641  
-##  I:1060   1st Qu.:-0.6197   1st Qu.:-0.5873   1st Qu.:-0.58397  
-##  M:1241   Median : 0.1664   Median : 0.1656   Median : 0.00786  
+##  F:1023   Min.   :-3.7353   Min.   :-3.5525   Min.   :-3.27188  
+##  I:1075   1st Qu.:-0.6078   1st Qu.:-0.6259   1st Qu.:-0.57232  
+##  M:1245   Median : 0.1428   Median : 0.1309   Median : 0.01453  
 ##           Mean   : 0.0000   Mean   : 0.0000   Mean   : 0.00000  
-##           3rd Qu.: 0.7456   3rd Qu.: 0.7177   3rd Qu.: 0.59969  
-##           Max.   : 2.4005   Max.   : 2.4242   Max.   :23.44452  
-##   Whole_Weight      Shuckled_Weight    Viscera_Weight    
-##  Min.   :-1.67135   Min.   :-1.60985   Min.   :-1.64116  
-##  1st Qu.:-0.79104   1st Qu.:-0.77745   1st Qu.:-0.80064  
-##  Median :-0.06141   Median :-0.09985   Median :-0.09117  
-##  Mean   : 0.00000   Mean   : 0.00000   Mean   : 0.00000  
-##  3rd Qu.: 0.65103   3rd Qu.: 0.63046   3rd Qu.: 0.64994  
-##  Max.   : 4.02715   Max.   : 5.05612   Max.   : 5.22311  
+##           3rd Qu.: 0.7683   3rd Qu.: 0.7364   3rd Qu.: 0.60140  
+##           Max.   : 2.1443   Max.   : 2.2502   Max.   :23.25418  
+##   Whole_Weight      Shuckled_Weight   Viscera_Weight    
+##  Min.   :-1.68089   Min.   :-1.6079   Min.   :-1.63772  
+##  1st Qu.:-0.78794   1st Qu.:-0.7935   1st Qu.:-0.79721  
+##  Median :-0.06162   Median :-0.1031   Median :-0.08916  
+##  Mean   : 0.00000   Mean   : 0.0000   Mean   : 0.00000  
+##  3rd Qu.: 0.65397   3rd Qu.: 0.6279   3rd Qu.: 0.64172  
+##  Max.   : 4.09185   Max.   : 5.1018   Max.   : 5.30109  
 ##   Shell_Weight          Rings        
-##  Min.   :-1.68536   Min.   :-2.4610  
-##  1st Qu.:-0.78327   1st Qu.:-0.5984  
-##  Median :-0.03745   Median :-0.2880  
+##  Min.   :-1.69740   Min.   :-2.7758  
+##  1st Qu.:-0.79204   1st Qu.:-0.5971  
+##  Median :-0.05553   Median :-0.2858  
 ##  Mean   : 0.00000   Mean   : 0.0000  
-##  3rd Qu.: 0.63734   3rd Qu.: 0.3329  
-##  Max.   : 5.43189   Max.   : 5.9206
+##  3rd Qu.: 0.65044   3rd Qu.: 0.3367  
+##  Max.   : 5.51316   Max.   : 5.3166
 </code></pre>
 
   </article>
@@ -444,27 +444,27 @@ test = predict(preProcValues, test)
     <pre><code class="r">summary(test)
 </code></pre>
 
-<pre><code>##  Sex         Length           Diameter           Height        
-##  F:265   Min.   :-3.8066   Min.   :-3.5854   Min.   :-3.21135  
-##  I:282   1st Qu.:-0.6015   1st Qu.:-0.6179   1st Qu.:-0.59561  
-##  M:287   Median : 0.1250   Median : 0.1495   Median : 0.02718  
-##          Mean   : 0.0000   Mean   : 0.0000   Mean   : 0.00000  
-##          3rd Qu.: 0.8088   3rd Qu.: 0.7634   3rd Qu.: 0.64998  
-##          Max.   : 2.0908   Max.   : 1.9914   Max.   : 9.36910  
-##   Whole_Weight      Shuckled_Weight   Viscera_Weight     Shell_Weight     
-##  Min.   :-1.69852   Min.   :-1.6067   Min.   :-1.6545   Min.   :-1.74629  
-##  1st Qu.:-0.78955   1st Qu.:-0.8046   1st Qu.:-0.7981   1st Qu.:-0.81489  
-##  Median :-0.06643   Median :-0.1308   Median :-0.1198   Median :-0.06072  
-##  Mean   : 0.00000   Mean   : 0.0000   Mean   : 0.0000   Mean   : 0.00000  
-##  3rd Qu.: 0.70763   3rd Qu.: 0.6913   3rd Qu.: 0.6915   3rd Qu.: 0.69251  
-##  Max.   : 3.69355   Max.   : 4.5762   Max.   : 3.1777   Max.   : 3.25763  
+<pre><code>##  Sex         Length           Diameter           Height       
+##  F:284   Min.   :-3.1324   Min.   :-3.1190   Min.   :-3.1108  
+##  I:267   1st Qu.:-0.5665   1st Qu.:-0.5642   1st Qu.:-0.6493  
+##  M:283   Median : 0.1784   Median : 0.1371   Median : 0.1280  
+##          Mean   : 0.0000   Mean   : 0.0000   Mean   : 0.0000  
+##          3rd Qu.: 0.7579   3rd Qu.: 0.7383   3rd Qu.: 0.6462  
+##          Max.   : 2.3719   Max.   : 2.3913   Max.   : 2.8486  
+##   Whole_Weight     Shuckled_Weight   Viscera_Weight     Shell_Weight     
+##  Min.   :-1.6800   Min.   :-1.6255   Min.   :-1.6639   Min.   :-1.71003  
+##  1st Qu.:-0.7958   1st Qu.:-0.7695   1st Qu.:-0.8010   1st Qu.:-0.77158  
+##  Median :-0.0544   Median :-0.1185   Median :-0.1128   Median :-0.05204  
+##  Mean   : 0.0000   Mean   : 0.0000   Mean   : 0.0000   Mean   : 0.00000  
+##  3rd Qu.: 0.6989   3rd Qu.: 0.6491   3rd Qu.: 0.7070   3rd Qu.: 0.62084  
+##  Max.   : 3.4477   Max.   : 3.9055   Max.   : 3.6833   Max.   : 4.60611  
 ##      Rings        
-##  Min.   :-2.7672  
-##  1st Qu.:-0.6048  
-##  Median :-0.2959  
+##  Min.   :-2.4449  
+##  1st Qu.:-0.6101  
+##  Median :-0.3043  
 ##  Mean   : 0.0000  
-##  3rd Qu.: 0.3219  
-##  Max.   : 4.0287
+##  3rd Qu.: 0.3073  
+##  Max.   : 5.8116
 </code></pre>
 
   </article>
@@ -587,15 +587,15 @@ model_gbm&lt;-train(train[,predictors],train[,outcome],
 ## Resampling results across tuning parameters:
 ## 
 ##   interaction.depth  n.trees  RMSE       Rsquared   MAE      
-##   1                   50      0.7502591  0.4454662  0.5382197
-##   1                  100      0.7206563  0.4865738  0.5157580
-##   1                  150      0.7043399  0.5073519  0.5044893
-##   2                   50      0.7000025  0.5158610  0.4998578
-##   2                  100      0.6750586  0.5438537  0.4782080
-##   2                  150      0.6711010  0.5483069  0.4737402
-##   3                   50      0.6843659  0.5340065  0.4852911
-##   3                  100      0.6711283  0.5482569  0.4732381
-##   3                  150      0.6706128  0.5490469  0.4723335
+##   1                   50      0.7588560  0.4459061  0.5448033
+##   1                  100      0.7296961  0.4855417  0.5219807
+##   1                  150      0.7135095  0.5056584  0.5100219
+##   2                   50      0.7118878  0.5109211  0.5070230
+##   2                  100      0.6838914  0.5420810  0.4830082
+##   2                  150      0.6782502  0.5483119  0.4780722
+##   3                   50      0.6933393  0.5321337  0.4908071
+##   3                  100      0.6785625  0.5476458  0.4771978
+##   3                  150      0.6764883  0.5502120  0.4754803
 ## 
 ## Tuning parameter &#39;shrinkage&#39; was held constant at a value of 0.1
 ## 
@@ -637,15 +637,15 @@ library(gbm)
 
 <pre><code>## gbm variable importance
 ## 
-##                 Overall
-## Shell_Weight    100.000
-## Shuckled_Weight  28.940
-## Height            8.365
-## Whole_Weight      3.968
-## Diameter          2.822
-## Sex               1.661
-## Viscera_Weight    1.609
-## Length            0.000
+##                  Overall
+## Shell_Weight    100.0000
+## Shuckled_Weight  27.6562
+## Height            6.8541
+## Whole_Weight      6.5365
+## Diameter          1.7906
+## Sex               1.3046
+## Viscera_Weight    0.1177
+## Length            0.0000
 </code></pre>
 
   </article>
@@ -684,7 +684,7 @@ confusionMatrix(predictions,test[,outcome])
 </code></pre>
 
 <pre><code>##      RMSE  Rsquared       MAE 
-## 0.7063146 0.5029404 0.5014429
+## 0.6912575 0.5234761 0.4807695
 </code></pre>
 
   </article>
