@@ -1,4 +1,4 @@
-slides > slide:not(.nobackground):after {
+slide:not(.nobackground):after {
   font-size: 12pt;  
   content: attr(data-slide-num) "/" attr(data-total-slides);
   position: absolute;
