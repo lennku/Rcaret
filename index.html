@@ -265,13 +265,6 @@ Rings / integer / -- / +1.5 gives the age in years  </p>
 <pre><code class="r">data = read.csv(&quot;B:/OneDrive - Harvard University/CBQG fall 2018/Rcaret/abalone.data&quot;, header = F)
 colnames(data) = c(&quot;Sex&quot;, &quot;Length&quot;, &quot;Diameter&quot;, &quot;Height&quot;, &quot;Whole_Weight&quot;, 
                    &quot;Shuckled_Weight&quot;, &quot;Viscera_Weight&quot;, &quot;Shell_Weight&quot;, &quot;Rings&quot;)
-data = data %&gt;% filter(Sex != &quot;I&quot;)
-</code></pre>
-
-<pre><code>## Error in filter(., Sex != &quot;I&quot;): object &#39;Sex&#39; not found
-</code></pre>
-
-<pre><code class="r">write.table(data, &quot;abalone.csv&quot;, sep = &quot;,&quot;)
 </code></pre>
 
   </article>

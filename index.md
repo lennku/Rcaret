@@ -163,15 +163,6 @@ library(caret)
 data = read.csv("B:/OneDrive - Harvard University/CBQG fall 2018/Rcaret/abalone.data", header = F)
 colnames(data) = c("Sex", "Length", "Diameter", "Height", "Whole_Weight", 
                    "Shuckled_Weight", "Viscera_Weight", "Shell_Weight", "Rings")
-data = data %>% filter(Sex != "I")
-```
-
-```
-## Error in filter(., Sex != "I"): object 'Sex' not found
-```
-
-```r
-write.table(data, "abalone.csv", sep = ",")
 ```
 
 ---
