@@ -160,9 +160,18 @@ library(caret)
 
 
 ```r
-data = read.csv("abalone.data", header = F)
+data = read.csv("B:/OneDrive - Harvard University/CBQG fall 2018/Rcaret/abalone.data", header = F)
 colnames(data) = c("Sex", "Length", "Diameter", "Height", "Whole_Weight", 
                    "Shuckled_Weight", "Viscera_Weight", "Shell_Weight", "Rings")
+data = data %>% filter(Sex != "I")
+```
+
+```
+## Error in filter(., Sex != "I"): object 'Sex' not found
+```
+
+```r
+write.table(data, "abalone.csv", sep = ",")
 ```
 
 ---
@@ -224,7 +233,7 @@ featurePlot(x = data[, 2:8],
             plot = "scatter")
 ```
 
-![plot of chunk unnamed-chunk-6](figure/unnamed-chunk-6-1.png)
+![plot of chunk unnamed-chunk-6](assets/fig/unnamed-chunk-6-1.png)
 
 ---
 
@@ -235,7 +244,7 @@ featurePlot(x = data$Rings,
             plot = "box")
 ```
 
-![plot of chunk unnamed-chunk-7](figure/unnamed-chunk-7-1.png)
+![plot of chunk unnamed-chunk-7](assets/fig/unnamed-chunk-7-1.png)
 
 ---
 
@@ -250,7 +259,7 @@ M = cor(data[,-1])
 corrplot(M, method = "color")
 ```
 
-![plot of chunk unnamed-chunk-9](figure/unnamed-chunk-9-1.png)
+![plot of chunk unnamed-chunk-9](assets/fig/unnamed-chunk-9-1.png)
 
 ---
 
@@ -281,7 +290,6 @@ test = data[-intrain,]
 ```r
 preProcValues = preProcess(train, method = c("knnImpute")) #automatically centers and scales
 train = predict(preProcValues, train)
-preProcValues = preProcess(test, method = c("knnImpute"))
 test = predict(preProcValues, test)
 ```
 
@@ -294,26 +302,26 @@ summary(train)
 
 ```
 ##  Sex          Length           Diameter           Height        
-##  F:1023   Min.   :-3.7353   Min.   :-3.5525   Min.   :-3.27188  
-##  I:1075   1st Qu.:-0.6078   1st Qu.:-0.6259   1st Qu.:-0.57232  
-##  M:1245   Median : 0.1428   Median : 0.1309   Median : 0.01453  
+##  F:1046   Min.   :-3.7474   Min.   :-3.5692   Min.   :-3.58170  
+##  I:1045   1st Qu.:-0.6226   1st Qu.:-0.5906   1st Qu.:-0.62956  
+##  M:1252   Median : 0.1690   Median : 0.1666   Median : 0.01221  
 ##           Mean   : 0.0000   Mean   : 0.0000   Mean   : 0.00000  
-##           3rd Qu.: 0.7683   3rd Qu.: 0.7364   3rd Qu.: 0.60140  
-##           Max.   : 2.1443   Max.   : 2.2502   Max.   :23.25418  
-##   Whole_Weight      Shuckled_Weight   Viscera_Weight    
-##  Min.   :-1.68089   Min.   :-1.6079   Min.   :-1.63772  
-##  1st Qu.:-0.78794   1st Qu.:-0.7935   1st Qu.:-0.79721  
-##  Median :-0.06162   Median :-0.1031   Median :-0.08916  
-##  Mean   : 0.00000   Mean   : 0.0000   Mean   : 0.00000  
-##  3rd Qu.: 0.65397   3rd Qu.: 0.6279   3rd Qu.: 0.64172  
-##  Max.   : 4.09185   Max.   : 5.1018   Max.   : 5.30109  
-##   Shell_Weight          Rings        
-##  Min.   :-1.69740   Min.   :-2.7758  
-##  1st Qu.:-0.79204   1st Qu.:-0.5971  
-##  Median :-0.05553   Median :-0.2858  
-##  Mean   : 0.00000   Mean   : 0.0000  
-##  3rd Qu.: 0.65044   3rd Qu.: 0.3367  
-##  Max.   : 5.51316   Max.   : 5.3166
+##           3rd Qu.: 0.7523   3rd Qu.: 0.7220   3rd Qu.: 0.65398  
+##           Max.   : 2.4188   Max.   : 2.4385   Max.   : 9.63876  
+##   Whole_Weight      Shuckled_Weight   Viscera_Weight     Shell_Weight    
+##  Min.   :-1.68770   Min.   :-1.6125   Min.   :-1.6411   Min.   :-1.7082  
+##  1st Qu.:-0.78834   1st Qu.:-0.7728   1st Qu.:-0.7957   1st Qu.:-0.7856  
+##  Median :-0.05879   Median :-0.1011   Median :-0.0954   Median :-0.0317  
+##  Mean   : 0.00000   Mean   : 0.0000   Mean   : 0.0000   Mean   : 0.0000  
+##  3rd Qu.: 0.65806   3rd Qu.: 0.6367   3rd Qu.: 0.6570   3rd Qu.: 0.6199  
+##  Max.   : 4.05416   Max.   : 5.0466   Max.   : 5.2442   Max.   : 5.4969  
+##      Rings        
+##  Min.   :-2.7741  
+##  1st Qu.:-0.6031  
+##  Median :-0.2930  
+##  Mean   : 0.0000  
+##  3rd Qu.: 0.3273  
+##  Max.   : 5.9098
 ```
 
 ---
@@ -324,27 +332,27 @@ summary(test)
 ```
 
 ```
-##  Sex         Length           Diameter           Height       
-##  F:284   Min.   :-3.1324   Min.   :-3.1190   Min.   :-3.1108  
-##  I:267   1st Qu.:-0.5665   1st Qu.:-0.5642   1st Qu.:-0.6493  
-##  M:283   Median : 0.1784   Median : 0.1371   Median : 0.1280  
-##          Mean   : 0.0000   Mean   : 0.0000   Mean   : 0.0000  
-##          3rd Qu.: 0.7579   3rd Qu.: 0.7383   3rd Qu.: 0.6462  
-##          Max.   : 2.3719   Max.   : 2.3913   Max.   : 2.8486  
-##   Whole_Weight     Shuckled_Weight   Viscera_Weight     Shell_Weight     
-##  Min.   :-1.6800   Min.   :-1.6255   Min.   :-1.6639   Min.   :-1.71003  
-##  1st Qu.:-0.7958   1st Qu.:-0.7695   1st Qu.:-0.8010   1st Qu.:-0.77158  
-##  Median :-0.0544   Median :-0.1185   Median :-0.1128   Median :-0.05204  
-##  Mean   : 0.0000   Mean   : 0.0000   Mean   : 0.0000   Mean   : 0.00000  
-##  3rd Qu.: 0.6989   3rd Qu.: 0.6491   3rd Qu.: 0.7070   3rd Qu.: 0.62084  
-##  Max.   : 3.4477   Max.   : 3.9055   Max.   : 3.6833   Max.   : 4.60611  
-##      Rings        
-##  Min.   :-2.4449  
-##  1st Qu.:-0.6101  
-##  Median :-0.3043  
-##  Mean   : 0.0000  
-##  3rd Qu.: 0.3073  
-##  Max.   : 5.8116
+##  Sex         Length            Diameter            Height         
+##  F:261   Min.   :-3.28912   Min.   :-3.16535   Min.   :-3.068288  
+##  I:297   1st Qu.:-0.66431   1st Qu.:-0.64111   1st Qu.:-0.757915  
+##  M:276   Median : 0.14813   Median : 0.11616   Median : 0.012210  
+##          Mean   :-0.03052   Mean   :-0.03105   Mean   :-0.001026  
+##          3rd Qu.: 0.74184   3rd Qu.: 0.72198   3rd Qu.: 0.653980  
+##          Max.   : 2.04382   Max.   : 1.98410   Max.   :25.426311  
+##   Whole_Weight      Shuckled_Weight    Viscera_Weight   
+##  Min.   :-1.67041   Min.   :-1.59684   Min.   :-1.6229  
+##  1st Qu.:-0.80639   1st Qu.:-0.82659   1st Qu.:-0.8297  
+##  Median :-0.08929   Median :-0.14813   Median :-0.1226  
+##  Mean   :-0.03224   Mean   :-0.03839   Mean   :-0.0422  
+##  3rd Qu.: 0.62577   3rd Qu.: 0.61876   3rd Qu.: 0.5981  
+##  Max.   : 3.49391   Max.   : 3.45684   Max.   : 3.4673  
+##   Shell_Weight          Rings         
+##  Min.   :-1.69388   Min.   :-2.46396  
+##  1st Qu.:-0.81163   1st Qu.:-0.60312  
+##  Median :-0.07299   Median :-0.29298  
+##  Mean   :-0.02103   Mean   :-0.01705  
+##  3rd Qu.: 0.66027   3rd Qu.: 0.32730  
+##  Max.   : 3.48650   Max.   : 4.04899
 ```
 
 ---
@@ -458,15 +466,15 @@ print(model_gbm)
 ## Resampling results across tuning parameters:
 ## 
 ##   interaction.depth  n.trees  RMSE       Rsquared   MAE      
-##   1                   50      0.7588560  0.4459061  0.5448033
-##   1                  100      0.7296961  0.4855417  0.5219807
-##   1                  150      0.7135095  0.5056584  0.5100219
-##   2                   50      0.7118878  0.5109211  0.5070230
-##   2                  100      0.6838914  0.5420810  0.4830082
-##   2                  150      0.6782502  0.5483119  0.4780722
-##   3                   50      0.6933393  0.5321337  0.4908071
-##   3                  100      0.6785625  0.5476458  0.4771978
-##   3                  150      0.6764883  0.5502120  0.4754803
+##   1                   50      0.7658889  0.4292350  0.5506145
+##   1                  100      0.7371362  0.4694133  0.5289367
+##   1                  150      0.7216469  0.4892545  0.5173045
+##   2                   50      0.7199629  0.4942853  0.5154158
+##   2                  100      0.6927822  0.5261471  0.4911339
+##   2                  150      0.6882157  0.5312498  0.4861801
+##   3                   50      0.7022243  0.5160358  0.4991297
+##   3                  100      0.6878071  0.5319263  0.4848958
+##   3                  150      0.6849501  0.5357355  0.4825321
 ## 
 ## Tuning parameter 'shrinkage' was held constant at a value of 0.1
 ## 
@@ -483,7 +491,7 @@ print(model_gbm)
 plot(model_gbm)
 ```
 
-![plot of chunk unnamed-chunk-21](figure/unnamed-chunk-21-1.png)
+![plot of chunk unnamed-chunk-21](assets/fig/unnamed-chunk-21-1.png)
 
 ---
 
@@ -508,12 +516,12 @@ varImp(object=model_gbm)
 ## 
 ##                  Overall
 ## Shell_Weight    100.0000
-## Shuckled_Weight  27.6562
-## Height            6.8541
-## Whole_Weight      6.5365
-## Diameter          1.7906
-## Sex               1.3046
-## Viscera_Weight    0.1177
+## Shuckled_Weight  27.6247
+## Height           12.3579
+## Whole_Weight      7.2000
+## Viscera_Weight    0.8404
+## Sex               0.8226
+## Diameter          0.5509
 ## Length            0.0000
 ```
 
@@ -525,7 +533,7 @@ varImp(object=model_gbm)
 plot(varImp(object=model_gbm),main="GBM - Variable Importance")
 ```
 
-![plot of chunk unnamed-chunk-23](figure/unnamed-chunk-23-1.png)
+![plot of chunk unnamed-chunk-23](assets/fig/unnamed-chunk-23-1.png)
 
 ---
 
@@ -549,7 +557,7 @@ confusionMatrix(predictions,test[,outcome])
 
 ```
 ##      RMSE  Rsquared       MAE 
-## 0.6912575 0.5234761 0.4807695
+## 0.6752421 0.5452949 0.4818521
 ```
 
 ---
@@ -560,7 +568,7 @@ plot(predictions, test[,outcome])
 abline(a = 0 , b = 1, col = "red")
 ```
 
-![plot of chunk unnamed-chunk-26](figure/unnamed-chunk-26-1.png)
+![plot of chunk unnamed-chunk-26](assets/fig/unnamed-chunk-26-1.png)
 
 ---
 
