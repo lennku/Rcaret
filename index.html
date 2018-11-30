@@ -356,7 +356,7 @@ colnames(data) = c(&quot;Sex&quot;, &quot;Length&quot;, &quot;Diameter&quot;, &q
 corrplot(M, method = &quot;color&quot;)
 </code></pre>
 
-<p><img src="assets/fig/unnamed-chunk-9-1.png" alt="plot of chunk unnamed-chunk-9"></p>
+<p><img src="figure/unnamed-chunk-9-1.png" alt="plot of chunk unnamed-chunk-9"></p>
 
   </article>
   <!-- Presenter Notes -->
@@ -613,7 +613,7 @@ model_gbm&lt;-train(train[,predictors],train[,outcome],
     <pre><code class="r">plot(model_gbm)
 </code></pre>
 
-<p><img src="assets/fig/unnamed-chunk-21-1.png" alt="plot of chunk unnamed-chunk-21"></p>
+<p><img src="figure/unnamed-chunk-21-1.png" alt="plot of chunk unnamed-chunk-21"></p>
 
   </article>
   <!-- Presenter Notes -->
@@ -657,7 +657,7 @@ library(gbm)
 plot(varImp(object=model_gbm),main=&quot;GBM - Variable Importance&quot;)
 </code></pre>
 
-<p><img src="assets/fig/unnamed-chunk-23-1.png" alt="plot of chunk unnamed-chunk-23"></p>
+<p><img src="figure/unnamed-chunk-23-1.png" alt="plot of chunk unnamed-chunk-23"></p>
 
   </article>
   <!-- Presenter Notes -->
@@ -696,7 +696,7 @@ confusionMatrix(predictions,test[,outcome])
 abline(a = 0 , b = 1, col = &quot;red&quot;)
 </code></pre>
 
-<p><img src="assets/fig/unnamed-chunk-26-1.png" alt="plot of chunk unnamed-chunk-26"></p>
+<p><img src="figure/unnamed-chunk-26-1.png" alt="plot of chunk unnamed-chunk-26"></p>
 
   </article>
   <!-- Presenter Notes -->
